@@ -1,11 +1,11 @@
-#Software Developer 
+# Software Developer 
 
-#Description
+## Description
 
-#Education
+## Education
 
-#Work Experience
+## Work Experience
 
-#Academic Experience
+## Academic Experience
 
 
