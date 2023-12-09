@@ -1,11 +1,2 @@
-# Software Developer 
-
-## Description
-
-## Education
-
-## Work Experience
-
-## Academic Experience
-
-
+# My portfolio website
+let's create a static website to provide info about me 😄.
