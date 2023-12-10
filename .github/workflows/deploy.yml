@@ -43,18 +43,6 @@ jobs:
       - name: Build the Rust WASM app and all of its assets
         run: trunk build --public-url ${{ github.event.repository.name }} --release
 
-      - name: serve to change index.html
-        run: trunk serve&
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          name: artifact
-          path: "./dist"
-
 # we deploy on a branch
   deploy:
     needs: build
@@ -66,31 +54,8 @@ jobs:
       id-token: write
 
     steps:
-      - name: checkout gh_branch
-        uses: actions/checkout@v3
+      - uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/master'
         with:
-          ref: 'gh_branch'
-
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: artifact
-          path: .
-
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: .
-
-      # unzip and delete
-      - name: Extract artifact
-        run: tar xf artifact.tar -C .
-        working-directory: .
-
-      - name: Remove artifact.tar
-        run: rm artifact.tar
-        working-directory: .
-
-      - name: Commit and push changes to gh_branch
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "updating website"
+          github_token: $
+          publish_dir: ./dist
