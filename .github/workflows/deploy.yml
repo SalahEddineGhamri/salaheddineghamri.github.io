@@ -74,9 +74,9 @@ jobs:
 
       # unzip and delete
       - name: Extract artifact
-        run: tar xf artifact.tar -C .
+        run: tar xf github-pages.tar -C .
       - name: Remove artifact.tar
-        run: rm artifact.tar
+        run: rm github-pages.tar
 
       - name: Commit and push changes to gh_branch
         uses: stefanzweifel/git-auto-commit-action@v5
