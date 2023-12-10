@@ -1,5 +1,4 @@
 # https://www.reddit.com/r/rust/comments/10eiysf/comment/j4rmeum/?utm_source=share&utm_medium=web2x&context=3
-
 name: Deploy my-portfolio-app
 
 # Controls when the workflow will run
@@ -50,7 +49,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          name: page
           path: "./dist"
 
   deploy:
@@ -66,17 +64,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - uses: actions/download-artifact@master
-        with:
-          name: page
-          path: .
-
-      - uses: actions/configure-pages@v2
-
-      - uses: actions/upload-pages-artifact@v2
-        with:
-          path: .
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
