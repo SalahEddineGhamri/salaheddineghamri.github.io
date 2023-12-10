@@ -1,1 +1,0 @@
-/home/dev/workspace/salaheddineghamri.github.io/my-portfolio-app/target/wasm32-unknown-unknown/debug/my-portfolio-app.wasm: /home/dev/workspace/salaheddineghamri.github.io/my-portfolio-app/src/main.rs
