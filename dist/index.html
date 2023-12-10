@@ -2,11 +2,11 @@
         <meta charset="utf-8">
         <title>Yew App</title>
     
-<link rel="preload" href="/my-portfolio-app-4624f37d88c4ed93_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/my-portfolio-app-4624f37d88c4ed93.js"></head>
+<link rel="preload" href="/my-portfolio-app-b69ad1cc1370d864_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/my-portfolio-app-b69ad1cc1370d864.js"></head>
     <body>
-
-<script type="module">import init from '/my-portfolio-app-4624f37d88c4ed93.js';init('/my-portfolio-app-4624f37d88c4ed93_bg.wasm');</script><script>(function () {
+    
+    <script>(function () {
     var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     var url = protocol + '//' + window.location.host + '/_trunk/ws';
     var poll_interval = 5000;
@@ -32,5 +32,7 @@
         }
     };
     ws.onclose = reload_upon_connect;
-})()
-</script></body></html>
+    })()
+    </script>
+
+<script type="module">import init from '/my-portfolio-app-b69ad1cc1370d864.js';init('/my-portfolio-app-b69ad1cc1370d864_bg.wasm');</script></body></html>
