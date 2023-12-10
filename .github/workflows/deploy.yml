@@ -43,17 +43,6 @@ jobs:
       - name: Build the Rust WASM app and all of its assets
         run: trunk build --public-url ${{ github.event.repository.name }} --release
 
-# we deploy on a branch
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-
-    steps:
       - uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'
         with:
