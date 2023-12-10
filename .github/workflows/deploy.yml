@@ -49,7 +49,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          name: dist
           path: "./dist"
 
 # we deploy on a branch
@@ -61,10 +60,6 @@ jobs:
       pages: write
       id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: checkout gh_branch
         uses: actions/checkout@v2
@@ -74,13 +69,15 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: dist
           path: .
 
+      # unzip and delete
+      - name: Extract artifact
+        run: tar xf artifact.tar -C .
+      - name: Remove artifact.tar
+        run: rm artifact.tar
+
       - name: Commit and push changes to gh_branch
-        run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
-          git add .
-          git commit -m "Update gh_branch with dist files"
-          git push origin gh_branch
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "updating website"
