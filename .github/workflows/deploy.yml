@@ -52,7 +52,6 @@ jobs:
         with:
           name: page
           path: "./dist"
-          if-no-files-found: error
 
   deploy:
     needs: build
