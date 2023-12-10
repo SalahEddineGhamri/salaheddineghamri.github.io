@@ -18,6 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Restore cache
         uses: actions/cache@v3
         with:
@@ -43,7 +44,8 @@ jobs:
       - name: Build the Rust WASM app and all of its assets
         run: trunk build --public-url ${{ github.event.repository.name }} --release
 
-      - uses: peaceiris/actions-gh-pages@v3
+      - name: deploy static
+        uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
