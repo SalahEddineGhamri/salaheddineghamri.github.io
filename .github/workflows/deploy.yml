@@ -49,6 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
+          name: artifact
           path: "./dist"
 
 # we deploy on a branch
@@ -72,6 +73,10 @@ jobs:
         with:
           name: artifact
           path: .
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: .
 
       # unzip and delete
       - name: Extract artifact
