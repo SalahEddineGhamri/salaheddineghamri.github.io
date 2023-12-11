@@ -1,4 +1,7 @@
 use yew::prelude::*;
+use crate::components::{Header, Navbar, Row, Footer};
+
+mod components;
 
 #[function_component]
 fn App() -> Html {
@@ -12,10 +15,17 @@ fn App() -> Html {
     };
 
     html! {
+    <>
         <div>
             <button {onclick}>{ "+1" }</button>
             <p>{ *counter }</p>
         </div>
+
+        <Header />
+        <Navbar />
+        <Row />
+        <Footer />
+    </>
     }
 }
 
