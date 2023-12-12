@@ -28,6 +28,8 @@ cargo install cargo-generate --locked cargo
 ```
 
 # Create the project
+Run this command the first time:
 ```
 cargo generate --git https://github.com/yewstack/yew-trunk-minimal-template
 ```
+then you can change the project later on.

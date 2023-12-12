@@ -16,15 +16,14 @@ fn App() -> Html {
 
     html! {
     <>
+        <Navbar />
+        <Header />
+        <Row />
+        <Footer />
         <div>
             <button {onclick}>{ "+1" }</button>
             <p>{ *counter }</p>
         </div>
-
-        <Header />
-        <Navbar />
-        <Row />
-        <Footer />
     </>
     }
 }
