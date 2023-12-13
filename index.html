@@ -3,7 +3,31 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lato&family=Telex&display=swap" rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+          tailwind.config = {
+            theme: {
+              extend: {
+                screens: {
+                  'sm': '576px',
+                  'md': '960px',
+                  'lg': '1440px',
+                },
+                fontFamily: {
+                  "lato": ['Lato', 'sans-serif'],
+                  "telex": ['Telex', 'sans'],
+                  "inter": ['Inter', 'sans-serif'],
+                },
+                colors: {
+                  clifford: "#da373d",
+                },
+              },
+            },
+        }
+        </script>
         <title>Salah's webpage</title>
     </head>
     <link data-trunk rel="copy-dir" href="src/assets"/>
