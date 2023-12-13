@@ -11,8 +11,8 @@ mod pages;
 fn App() -> Html {
     html! {
     <>
-        <Navbar />
-         <BrowserRouter>
+        <BrowserRouter>
+            <Navbar/>
             <Switch<Route> render={switch} />
         </BrowserRouter>
         <Footer/>
