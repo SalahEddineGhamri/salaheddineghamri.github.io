@@ -14,7 +14,19 @@ impl Component for Row {
         html! {
             <div class="row">
                 <div class="side">{"..."}</div>
-                <div class="main">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
+                <div class="side">{"..."}</div>
             </div>
         }
     }

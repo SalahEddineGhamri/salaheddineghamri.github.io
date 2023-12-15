@@ -11,11 +11,17 @@ mod pages;
 fn App() -> Html {
     html! {
     <>
-        <BrowserRouter>
+        <HashRouter>
             <Navbar/>
-            <Switch<Route> render={switch} />
-        </BrowserRouter>
-        <Footer/>
+            <div class="flex flex-col min-h-full">
+            <div class="flex-1">
+                <Switch<Route> render={switch} />
+            </div>
+            <div class="flex-1 justify-end items-end">
+                <Footer/>
+            </div>
+            </div>
+        </HashRouter>
     </>
     }
 }
