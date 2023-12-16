@@ -23,10 +23,6 @@ impl Component for Row {
                 <div class="side">{"..."}</div>
                 <div class="side">{"..."}</div>
                 <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
             </div>
         }
     }
