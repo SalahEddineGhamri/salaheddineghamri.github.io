@@ -5,7 +5,7 @@ use crate::routers::Route;
 #[function_component(Navbar)]
 pub fn navbar() -> Html {
     html! {
-        <nav class="bg-zinc-50">
+        <nav class="font-oswald bg-zinc-50">
           <div class="relative mx-auto py-4 h-16 flex w-full items-center sm:px-6 lg:px-8">
               <div class="grow h-16 flex items-center">
 
@@ -14,8 +14,8 @@ pub fn navbar() -> Html {
                 <div class="flex flex-0 items-center">
                     <img class="h-24 w-auto" src="./assets/salah_logo.svg" alt="my logo"/>
                     <div class="hidden flex-col flex-0 sm:flex">
-                        <p class="shrink font-lato font-bold text-black text-l">{"Elevating Possibilities"}</p>
-                        <p class="shrink font-telex text-gray-600 text-xs">{"One Line at a Time"}</p>
+                        <p class="font-raleway font-bold text-black text-l">{"Elevating Possibilities"}</p>
+                        <p class="font-inter text-gray-600 text-xs">{"One Line at a Time"}</p>
                     </div>
                 </div>
                 </div>

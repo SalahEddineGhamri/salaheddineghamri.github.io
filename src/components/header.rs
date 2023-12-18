@@ -12,14 +12,15 @@ impl Component for Header {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <div class="flex flex-col-reverse mx-auto my-auto px-10 py-10 flex-col sm:flex-row sm:px-56 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col-reverse px-10 py-10 flex-col sm:flex-row sm:px-30 lg:px-56">
                 // description
-                <div class="self-center justify-self-start flex-1 flex flex-col pt-6 items-center sm:items-start sm:pt-4">
+                <div class="px-6 self-center justify-self-start flex-1 flex flex-col pt-6 items-center sm:items-start sm:pt-4">
                     <div class="justify-self-center py-4 sm:justify-self-center sm:py-6">
                         <h1 class="text-xl sm:text-3xl font-bold">{"Salah Eddine Ghamri"}</h1>
                         <p class="text-gray-600 text-l sm:text-s">{"Researcher & Software Engineer"}</p>
                     </div>
-                    <p class="m-1 font-inter text-black">
+                    <p class="font-inter text-black text-justify">
                                                {"My career blends electronics, software development, and research. 🚀 Specializing in mobile robotics, I've worked on autonomous behavior and pushed my boundaries in transportation technology. 🤖 Now, I work on advancing automotive technology, leveraging my diverse skill set in programming languages like C++, Python, and Rust and working closer to hardward (SoC & ECUs). My relentless pursuit of excellence and passion for collaboration drive me to propel meaningful advancements in software development. ✨ In addition to writing code for various purposes, I also blog📝."}
                                                </p>
                     // linkedin button
@@ -60,11 +61,12 @@ impl Component for Header {
                 </div>
 
                 // profile photo
-                <div class="flex-0 self-center sm:justify-self-end">
+                <div class="flex-0 self-center">
                   <div class="rounded-full overflow-hidden">
-                    <img src="./assets/profile.jpg" alt="Profile Photo" class="h-40 w-40 sm:h-96 sm:w-96 object-cover"/>
+                    <img src="./assets/profile.jpg" alt="Profile Photo" class="h-40 w-40 sm:h-80 sm:w-80 object-cover"/>
                   </div>
                 </div>
+            </div>
             </div>
         }
     }
