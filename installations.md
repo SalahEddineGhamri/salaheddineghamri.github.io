@@ -1,6 +1,3 @@
-
-A portfolio does not need really need this, however it is an opportunity to play with new tech.
-
 # Installs
 The following installs are needed to start developing the single page app.
 

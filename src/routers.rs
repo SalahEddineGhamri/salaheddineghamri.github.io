@@ -2,6 +2,8 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use crate::pages::{Home, Blog, Projects, ContactMe};
 
+// TODO add post that leads to a static HTML page
+
 // all routes defined here
 #[derive(Debug, Clone, PartialEq, Routable)]
 pub enum Route {
