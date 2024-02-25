@@ -13,16 +13,7 @@ impl Component for Row {
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
             <div class="row">
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
-                <div class="side">{"..."}</div>
+                <div class="side">{""}</div>
             </div>
         }
     }

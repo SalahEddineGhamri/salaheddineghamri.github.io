@@ -6,23 +6,25 @@ use crate::routers::{Route, switch};
 mod components;
 mod routers;
 mod pages;
-mod utils;
 
 #[function_component]
 fn App() -> Html {
     html! {
     <>
+    <div class="flex flex-col min-h-screen">
         <HashRouter>
             <Navbar/>
             <div class="flex flex-col min-h-full">
             <div class="flex-1">
                 <Switch<Route> render={switch} />
             </div>
-            <div class="flex-1 justify-end items-end">
-                <Footer/>
-            </div>
             </div>
         </HashRouter>
+
+        <div class="mt-auto">
+            <Footer/>
+        </div>
+    </div>
     </>
     }
 }
