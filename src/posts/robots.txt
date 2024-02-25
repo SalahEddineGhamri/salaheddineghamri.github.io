@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://salaheddineghamri.github.io/posts/sitemap.xml
