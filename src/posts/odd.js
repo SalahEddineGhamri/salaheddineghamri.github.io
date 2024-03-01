@@ -1,6 +1,7 @@
 function initMobile() {
   var $mobileNav = document.getElementById("mobile-navbar");
   var $mobileNavIcon = document.querySelector(".mobile-navbar-icon");
+  var $header = document.getElementById("header");
 
   var slideout = new Slideout({
     "panel": document.getElementById("mobile-panel"),
@@ -18,6 +19,7 @@ function initMobile() {
     $mobileNav.classList.add("fixed-open");
     $mobileNavIcon.classList.add("icon-click");
     $mobileNavIcon.classList.remove("icon-out");
+    $header.classList.add("fixed-open");
   });
 
   slideout.on("beforeclose", function () {
@@ -70,12 +72,24 @@ function initToc() {
   })
 }
 
+function initDirection() {
+    var postTitle = document.querySelector('.post__title');
+    var titleText = postTitle.textContent;
+    if (/[\u0600-\u06FF]/.test(titleText)) {
+        document.documentElement.setAttribute('dir', 'rtl');
+    } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+    }
+}
+
 if (document.readyState === "complete" ||
     (document.readyState !== "loading" && !document.documentElement.doScroll)
 ) {
   initMobile();
   initToc();
+  initDirection();
 } else {
   document.addEventListener("DOMContentLoaded", initMobile);
   document.addEventListener("DOMContentLoaded", initToc);
+  document.addEventListener("DOMContentLoaded", initDirection);
 }

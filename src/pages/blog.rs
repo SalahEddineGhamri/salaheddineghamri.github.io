@@ -1,7 +1,17 @@
 use yew::prelude::*;
 
+// 1. we create the poste itself: image - title - summery
+
 // TODO create the layout for the blog page, count how much page we have then act on it
 // TODO create a function that generates html on the fly
+
+/*
+we need filters for: categories - tags
+we need for each blog icons:
+    - image
+    - title
+    - summery
+*/
 
 #[function_component]
 pub fn Blog() -> Html {
