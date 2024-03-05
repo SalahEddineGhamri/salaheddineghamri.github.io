@@ -3,6 +3,9 @@ name = "my-portfolio-app"
 version = "0.1.0"
 edition = "2021"
 
+[dev-dependencies]
+rustfmt = "0.10.0"
+
 [dependencies]
 select = "0.6.0"
 gloo-console = "0.3.0"

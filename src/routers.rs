@@ -1,6 +1,6 @@
+use crate::pages::{Blog, ContactMe, Home, Projects};
 use yew::prelude::*;
 use yew_router::prelude::*;
-use crate::pages::{Home, Blog, Projects, ContactMe};
 
 // all routes defined here
 #[derive(Debug, Clone, PartialEq, Routable)]
@@ -21,11 +21,11 @@ pub enum Route {
 }
 
 pub fn switch(routes: Route) -> Html {
-    match routes{
-        Route::Home => html!{<Home/>},
-        Route::Blog => html!{<Blog/>},
-        Route::Projects => html!{<Projects/>},
-        Route::ContactMe => html!{<ContactMe/>},
+    match routes {
+        Route::Home => html! {<Home/>},
+        Route::Blog => html! {<Blog/>},
+        Route::Projects => html! {<Projects/>},
+        Route::ContactMe => html! {<ContactMe/>},
         Route::TestHtml => {
             html! {
                 <iframe src="/posts/test.html" width="100%" height="800px" frameborder="0"></iframe>
