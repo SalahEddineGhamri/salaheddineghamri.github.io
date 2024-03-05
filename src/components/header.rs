@@ -12,11 +12,11 @@ impl Component for Header {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col-reverse px-10 py-10 flex-col sm:flex-row sm:px-30 lg:px-56">
+            <div class = "max-w-6xl mx-auto text-[#0C0C0C]">
+            <div class = "flex flex-col-reverse px-10 py-10 flex-col sm:flex-row sm:px-30 lg:px-56">
                 // description
-                <div class="px-6 self-center justify-self-start flex-1 flex flex-col pt-6 items-center sm:items-start sm:pt-4">
-                    <div class="justify-self-center py-4 sm:justify-self-center sm:py-6">
+                <div class = "px-6 self-center justify-self-start flex-1 flex flex-col pt-6 items-center sm:items-start sm:pt-4">
+                    <div class = "justify-self-center py-4 sm:justify-self-center sm:py-6">
                         <h1 class="text-xl sm:text-3xl font-bold">{"Salah Eddine Ghamri"}</h1>
                         <p class="text-gray-600 text-l sm:text-s">{"Researcher & Software Engineer"}</p>
                     </div>
@@ -24,19 +24,19 @@ impl Component for Header {
                                                {"My career blends electronics, software development, and research. 🚀 Specializing in mobile robotics, I've worked on autonomous behavior and pushed my boundaries in transportation technology. 🤖 Now, I work on advancing automotive technology, leveraging my diverse skill set in programming languages like C++, Python, and Rust and working closer to hardward (SoC & ECUs). My relentless pursuit of excellence and passion for collaboration drive me to propel meaningful advancements in software development. ✨ In addition to writing code for various purposes, I also blog📝."}
                                                </p>
                     // linkedin button
-                    <div class="flex py-6 space-x-2 items-center">
-                    <a href="https://de.linkedin.com/in/salaheddineghamri/en">
+                    <div class = "flex py-6 space-x-2 items-center">
+                    <a href = "https://de.linkedin.com/in/salaheddineghamri/en">
                     <button
-                      type="button"
-                      class="mb-2 inline-block rounded px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg"
-                      style="background-color: #0077b5">
+                      type = "button"
+                      class = "mb-2 inline-block rounded px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg"
+                      style = "background-color: #0077b5">
                       <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4"
-                        fill="currentColor"
-                        viewBox="0 0 24 24">
+                        xmlns = "http://www.w3.org/2000/svg"
+                        class = "h-4 w-4"
+                        fill = "currentColor"
+                        viewBox = "0 0 24 24">
                         <path
-                          d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+                          d = "M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
                       </svg>
                     </button>
                     </a>

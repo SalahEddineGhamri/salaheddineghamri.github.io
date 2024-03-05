@@ -11,7 +11,7 @@ pub fn navbar() -> Html {
 
                 // flex_1: logo
                 <div class ="flex-1">
-                <div class="flex flex-0 items-center">
+                <div class="flex flex-0 items-center text-[#0C0C0C]">
                     <img class="h-24 w-auto" src="./assets/salah_logo.svg" alt="my logo"/>
                     <div class="hidden flex-col flex-0 sm:flex">
                         <p class="font-raleway font-bold text-black text-l">{"Elevating Possibilities"}</p>

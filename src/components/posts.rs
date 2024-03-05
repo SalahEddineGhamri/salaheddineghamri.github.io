@@ -9,10 +9,9 @@ pub struct Props {
 
 #[function_component]
 pub fn Posts(props: &Props) -> Html {
-
     let posts: Vec<Html> = props.posts
         .iter()
-        .map(|post: &post::Post| html! { <post::PostComponent title={post.title.clone()} date={post.date.clone()} description={post.description.clone()} tags={post.tags.clone()} image={post.image.clone()} id={post.id}/>})
+        .map(|post: &post::Post| html! { <post::PostComponent title={post.title.clone()} date={post.date.clone()} description={post.description.clone()} tags={post.tags.clone()} image={post.image.clone()} id={post.id} path={post.path.clone()}/>})
         .collect();
 
     html! {
