@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <!-- TODO take out from themes -->
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLG9J53NPY"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-VLG9J53NPY');
+      </script>
+
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+      <meta property="og:image" content="https://salaheddineghamri.github.io/posts/images/8570_cover.png" />
+      <meta name="author" content="Salah Eddine Ghamri">
+      <meta name="publish-date" content="2023-02-11">
+      
+      <meta name="description" content="About how to define version for a c++ project and use this version in the code." />
+      
+    
+
+      <title> - Using Cmake defined variables in c++ code</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https://salaheddineghamri.github.io/posts/site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+      
+    </head>
+
+    <body>
+            <header id="header">
+                
+                <div class="pad"></div>
+                <img class="cover-image" src="https://salaheddineghamri.github.io/posts/images/8570_cover.png" alt="cover image">
+                
+                <nav class="menu">
+                    <ul>
+                        
+                            <a href="https:&#x2F;&#x2F;salaheddineghamri.github.io&#x2F;#&#x2F;blog&#x2F;" class="return-to-main" title="Return to main page">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M12 3l-4 4h3v10h2V7h3z"/>
+                                </svg>
+                            </a>
+                        
+                    </ul>
+                </nav>
+            </header>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo"></a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;salaheddineghamri.github.io&#x2F;#&#x2F;blog&#x2F;">
+                            Return to main
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+<div class="post-toc" id="post-toc">
+  <a href="https://salaheddineghamri.github.io" class="profile-link">
+    <div class="profile-container">
+    <img src="https://salaheddineghamri.github.io/assets/profile.jpg" alt="Profile Image" class="profile-image">
+    </div>
+    <a class="writer">
+      <strong>Salah Eddine Ghamri</strong><br>
+      Software Engineer
+    </a>
+  </a>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8570/#1-cmake-variables" class="toc-link">1. Cmake variables</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8570/#2-definitions-to-the-compiler-command-line" class="toc-link">2. Definitions to the compiler command line</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8570/#which-method-to-take" class="toc-link">Which method to take?</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8570/#source" class="toc-link">Source</a>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;salaheddineghamri.github.io&#x2F;posts&#x2F;post-8570&#x2F;">Using Cmake defined variables in c++ code</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">created: 2023-02-11, modified: 2024-03-05</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <p>Cmake is a wonderful tool for generating building systems for projects. One of the applications that Cmake facilitates, is configuring the project version from within a <code>CMakeLists.txt</code> file.</p>
+<p>This can be easily done by defining the version components as either, cmake variables or as definitions to the compiler command line. This article will give an overview of both methods.</p>
+<p>Semantic versioning which is one of the popular methods used to version software gives the project a version number composed of 3 components: <code>Major</code>, <code>Minor</code> and the <code>patch</code>. Details on the meaning of each number go out of this article’s scope but it can be checked on this <a href="https://semver.org/">link</a>.</p>
+<p>The simplest way of defining a project version is by defining a header file containing the version components as global variables. This header file can then be included to make variables available for various uses. Doing things this way leaves us with the problem of maintaining these variables at the code level instead of aggregating this task to the build system.</p>
+<p>So how can we avoid defining the project version in multiple locations? In the code (if we need it there), in the build system or the source packaging.</p>
+<h2 id="1-cmake-variables">1. Cmake variables</h2>
+<p>The idea behind the first method is to use <code>configure_file()</code> command to copy an input file to another location and modify its content. The configuration file can be a <code>.h</code> header file that contains the definition of the project version. All variables with the decoration <code>@cmake_variable@</code> will be replaced with their values given in the <code>CMakeLists.txt</code>file.</p>
+<p>Cmake variables can be defined in the <code>CMakeLists.txt</code> using the <code>set()</code> command. For our tutorial, it is sufficient to have them of normal type. The following <code>CMakeLists.txt</code> file shows how to set them:</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#bf616a;">cmake_minimum_required </span><span>(VERSION </span><span style="color:#d08770;">3.2</span><span>)
+</span><span style="color:#8fa1b3;">project </span><span>(</span><span style="color:#bf616a;">MyProject</span><span>)
+</span><span>
+</span><span># Add the variables
+</span><span style="color:#bf616a;">set</span><span>(VERSION_MAJOR </span><span style="color:#d08770;">0</span><span>)
+</span><span style="color:#8fa1b3;">set</span><span>(VERSION_MINOR </span><span style="color:#d08770;">1</span><span>)
+</span><span style="color:#bf616a;">set</span><span>(VERSION_PATCH </span><span style="color:#d08770;">0</span><span>)
+</span><span>
+</span><span># generate version.</span><span style="color:#bf616a;">h</span><span> replacing all @VARIABLE@
+</span><span style="color:#bf616a;">configure_file </span><span>(version.</span><span style="color:#bf616a;">h</span><span>.</span><span style="color:#bf616a;">in</span><span> ${CMAKE_CURRENT_SOURCE_DIR}/version.</span><span style="color:#bf616a;">h</span><span> @ONLY)
+</span><span style="color:#8fa1b3;">add_executable </span><span>(${PROJECT_NAME} main.</span><span style="color:#bf616a;">cpp</span><span>)
+</span></code></pre>
+<p>The command <code>configure_file()</code> will copy the content of the file <code>version.h.in</code> and creates a new file called <code>version.h</code> in <code>${CMAKE_CURRENT_SOURCE_DIR}</code> which is the location where the source files of the project are located. Since we added the argument <code>@ONLY</code> to the <code>configure_file()</code> call. The content of <code>version.h</code> will be similar to <code>version.h.in</code> except that all references of the form <code>@variable@</code> will be replaced with what has been set in the <code>CMakeLists.txt</code>. Of course, this happens during the build (running <code>make</code> command).</p>
+<p><code>configure_file()</code> can be checked <a href="https://cmake.org/cmake/help/latest/command/configure_file.html">here</a>.</p>
+<blockquote>
+<p><code>@ONLY</code></p>
+<p>Restrict variable replacement to references of the form <code>@VAR@</code>. This is useful for configuring scripts that use <code>${VAR}</code> syntax.</p>
+</blockquote>
+<p>The content of the <code>version.h.in</code>:</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#ifndef</span><span> VERSION_H_IN
+</span><span style="color:#b48ead;">#define </span><span>VERSION_H_IN
+</span><span>
+</span><span style="color:#b48ead;">#define </span><span>PROJECT_NAME &quot;</span><span style="color:#a3be8c;">@PROJECT_NAME@</span><span>&quot;
+</span><span style="color:#b48ead;">#define </span><span>VERSION_MAJOR &quot;</span><span style="color:#a3be8c;">@VERSION_MAJOR@</span><span>&quot;
+</span><span style="color:#b48ead;">#define </span><span>VERSION_MINOR &quot;</span><span style="color:#a3be8c;">@VERSION_MINOR@</span><span>&quot;
+</span><span style="color:#b48ead;">#define </span><span>VERSION_PATCH &quot;</span><span style="color:#a3be8c;">@VERSION_PATCH@</span><span>&quot;
+</span><span>
+</span><span style="color:#b48ead;">#endif </span><span style="color:#65737e;">// VERSION_H_IN
+</span></code></pre>
+<p><code>version.h</code> will be the following:</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#ifndef</span><span> VERSION_H_IN
+</span><span style="color:#b48ead;">#define </span><span>VERSION_H_IN
+</span><span>
+</span><span style="color:#b48ead;">#define </span><span>PROJECT_NAME &quot;</span><span style="color:#a3be8c;">MyProject</span><span>&quot;
+</span><span style="color:#b48ead;">#define </span><span>VERSION_MAJOR &quot;</span><span style="color:#a3be8c;">0</span><span>&quot;
+</span><span style="color:#b48ead;">#define </span><span>VERSION_MINOR &quot;</span><span style="color:#a3be8c;">1</span><span>&quot;
+</span><span style="color:#b48ead;">#define </span><span>VERSION_PATCH &quot;</span><span style="color:#a3be8c;">0</span><span>&quot;
+</span><span>
+</span><span style="color:#b48ead;">#endif </span><span style="color:#65737e;">// VERSION_H_IN
+</span></code></pre>
+<p>Finally, we can include <code>version.h</code> and use the project versions in <code>main.cpp</code> like this:</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span style="color:#b48ead;">#include </span><span>&quot;</span><span style="color:#a3be8c;">version.h</span><span>&quot;
+</span><span>
+</span><span style="color:#b48ead;">auto </span><span style="color:#8fa1b3;">main</span><span>() -&gt; </span><span style="color:#b48ead;">int
+</span><span>{
+</span><span>  </span><span style="color:#65737e;">// use veriables from CMakeLists.txt
+</span><span>  std::cout &lt;&lt; &quot;</span><span style="color:#a3be8c;">project name </span><span>&quot; &lt;&lt; PROJECT_NAME &lt;&lt; std::endl;
+</span><span>  std::cout &lt;&lt; &quot;</span><span style="color:#a3be8c;">verions major: </span><span>&quot; &lt;&lt; VERSION_MAJOR &lt;&lt; std::endl;
+</span><span>  std::cout &lt;&lt; &quot;</span><span style="color:#a3be8c;">version minor: </span><span>&quot; &lt;&lt; VERSION_MINOR &lt;&lt; std::endl;
+</span><span>  std::cout &lt;&lt; &quot;</span><span style="color:#a3be8c;">version patch: </span><span>&quot; &lt;&lt; VERSION_PATCH &lt;&lt; std::endl;
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">return</span><span> EXIT_SUCCESS;
+</span><span>}
+</span></code></pre>
+<h2 id="2-definitions-to-the-compiler-command-line">2. Definitions to the compiler command line</h2>
+<p>The idea behind the second method is to pass the project version components as pre-processor directives to the compiler which will translate them during compilation and replace them in the target.</p>
+<p>For such a purpose we can rely on the <code>#define</code> pre-processor in c++. This pre-processor will allow us to create a c++ macro. The macro is “simply” a word that will be replaced during compilation time with the value given to it.</p>
+<p>The same <code>main.cpp</code> of the first method can be transformed into:</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">#define </span><span>VERSION_MAJOR _VERSION_MAJOR
+</span><span style="color:#b48ead;">#define </span><span>VERSION_MINOR _VERSION_MINOR
+</span><span style="color:#b48ead;">#define </span><span>VERSION_PATCH _VERSION_PATCH
+</span><span>
+</span><span style="color:#b48ead;">auto </span><span style="color:#8fa1b3;">main</span><span>() -&gt; </span><span style="color:#b48ead;">int
+</span><span>{
+</span><span>  </span><span style="color:#65737e;">// use veriable from CMakeLists.txt
+</span><span>  std::cout &lt;&lt; &quot;</span><span style="color:#a3be8c;">verions major: </span><span>&quot; &lt;&lt; VERSION_MAJOR &lt;&lt; std::endl;
+</span><span>  std::cout &lt;&lt; &quot;</span><span style="color:#a3be8c;">version minor: </span><span>&quot; &lt;&lt; VERSION_MINOR &lt;&lt; std::endl;
+</span><span>  std::cout &lt;&lt; &quot;</span><span style="color:#a3be8c;">version patch: </span><span>&quot; &lt;&lt; VERSION_PATCH &lt;&lt; std::endl;
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">return</span><span> EXIT_SUCCESS;
+</span><span>}
+</span></code></pre>
+<p>During the compilation <code>VERSION_MAJOR</code>, for example, will take the value <code>_VERSION_MAJOR</code> and when executing the target, it is as if we have written <code>_VERSION_MAJOR</code> in the <code>std::cout</code>.</p>
+<p>Of course, the compiler does not have any definition for <code>_VERSION_MAJOR</code> yet. These definitions can be passed to the compiler via the flag <code>-D</code> or equivalently to the <code>CMakeLists.txt</code> as follow:</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#bf616a;">cmake_minimum_required </span><span>(VERSION </span><span style="color:#d08770;">3.2</span><span>)
+</span><span style="color:#8fa1b3;">project </span><span>(</span><span style="color:#bf616a;">MyProject2</span><span>)
+</span><span>
+</span><span># Add the variables we need
+</span><span style="color:#bf616a;">ADD_DEFINITIONS</span><span>( -D_VERSION_MAJOR=\&quot;</span><span style="color:#a3be8c;">0</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">)
+</span><span style="color:#a3be8c;">ADD_DEFINITIONS( -D_VERSION_MINOR=</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">1</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">)
+</span><span style="color:#a3be8c;">ADD_DEFINITIONS( -D_VERSION_PATCH=</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">0</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">)
+</span><span style="color:#a3be8c;">
+</span><span style="color:#a3be8c;">add_executable (${PROJECT_NAME} main.cpp)
+</span></code></pre>
+<p>I should draw the reader’s attention that this is not the only cmake command to enable adding compilation definitions as you may read in this <a href="https://cmake.org/cmake/help/latest/command/add_definitions.html">link</a>.</p>
+<h2 id="which-method-to-take">Which method to take?</h2>
+<p>Which method to take? does not have a big impact. Depending on the project size and the number of libraries used, it may be preferable to use the <code>config_file()</code> approach as this will keep the call to the compiler small. (refer to this <a href="https://stackoverflow.com/questions/3781222/add-definitions-vs-configure-file">thread</a>)</p>
+<h2 id="source">Source</h2>
+<ul>
+<li><a href="https://cmake.org/cmake/help/latest/command/add_definitions.html">https://cmake.org/cmake/help/latest/command/add_definitions.html</a></li>
+<li><a href="https://stackoverflow.com/questions/3781222/add-definitions-vs-configure-file">https://stackoverflow.com/questions/3781222/add-definitions-vs-configure-file</a></li>
+<li><a href="https://evileg.com/en/post/536/">https://evileg.com/en/post/536/</a></li>
+</ul>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="">#cpp</a>
+                    
+                        <a href="">#cmake</a>
+                    
+                </div>
+            
+        
+    </div>
+
+    
+
+    <script src="https://giscus.app/client.js"
+            data-repo="salaheddineghamri/salaheddineghamri.github.io"
+            data-repo-id="R_kgDOK3yJYg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOK3yJYs4Cdper"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="1"
+            data-input-position="top"
+            data-theme="light"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    
+</article>
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+          <script type="text/javascript" src="https://salaheddineghamri.github.io/posts/odd.js" ></script>
+      
+    </body>
+</html>
