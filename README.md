@@ -1,6 +1,6 @@
 # My portfolio website
 let's create a SPA website to provide info about me 😄 and show my projects.
-This webapp is still under construction.
+This Webapp is still under construction.
 
 # Build
 We use trunk to build this project. Better use docker container and:

@@ -3,9 +3,6 @@ use select::document::Document;
 use select::predicate::{Attr, Class, Name, Predicate};
 use yew::prelude::*;
 
-use gloo_console::log;
-use wasm_bindgen::JsValue;
-
 use crate::components::post;
 use crate::components::posts;
 use crate::components::tag;

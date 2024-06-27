@@ -1,8 +1,5 @@
 use yew::prelude::*;
 
-use gloo_console::log;
-use wasm_bindgen::JsValue;
-
 #[derive(Properties, PartialEq)]
 pub struct Post {
     pub id: i32,

@@ -11,5 +11,4 @@ pub mod tag;
 pub use footer::Footer;
 pub use header::Header;
 pub use navbar::Navbar;
-pub use post::PostComponent;
 pub use row::Row;
