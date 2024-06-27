@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <!-- TODO take out from themes -->
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLG9J53NPY"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-VLG9J53NPY');
+      </script>
+
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+      <meta property="og:image" content="https://salaheddineghamri.github.io/posts/images/8571_cover.jpg" />
+      <meta name="author" content="Salah Eddine Ghamri">
+      <meta name="publish-date" content="2024-06-01">
+      
+      <meta name="description" content="About what is Q-learning algorithm and how it works in go to goal grid application" />
+      
+    
+
+      <title> - Basic Q-learning algorithm</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+              
+          <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+                  onload="renderMathInElement(document.body);"></script>
+              
+          
+      
+
+      
+          <link rel="stylesheet" href="https://salaheddineghamri.github.io/posts/site.css">
+          
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+          
+      
+
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+      
+    </head>
+
+    <body>
+            <header id="header">
+                
+                <div class="pad"></div>
+                <img class="cover-image" src="https://salaheddineghamri.github.io/posts/images/8571_cover.jpg" alt="cover image">
+                
+                <nav class="menu">
+                    <ul>
+                        
+                            <a href="https:&#x2F;&#x2F;salaheddineghamri.github.io&#x2F;#&#x2F;blog&#x2F;" class="return-to-main" title="Return to main page">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M12 3l-4 4h3v10h2V7h3z"/>
+                                </svg>
+                            </a>
+                        
+                    </ul>
+                </nav>
+            </header>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo"></a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;salaheddineghamri.github.io&#x2F;#&#x2F;blog&#x2F;">
+                            Return to main
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+<div class="post-toc" id="post-toc">
+  <a href="https://salaheddineghamri.github.io" class="profile-link">
+    <div class="profile-container">
+    <img src="https://salaheddineghamri.github.io/assets/profile.jpg" alt="Profile Image" class="profile-image">
+    </div>
+    <a class="writer">
+      <strong>Salah Eddine Ghamri</strong><br>
+      Software Engineer
+    </a>
+  </a>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8571/#introduction" class="toc-link">Introduction</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#reinforcement-learning-rl-reinforcement-learning-is-a-type-of-machine" class="toc-link">Reinforcement learning (RL) reinforcement learning is a type of machine</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#terminology" class="toc-link">Terminology</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8571/#q-learning" class="toc-link">Q-learning</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#q-table" class="toc-link">Q-table</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#updating-q-table-and-bellman-optimality-equation" class="toc-link">Updating Q-table and Bellman optimality equation</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#exploring-vs-expertise-with-epsilon-greedy-mechanism" class="toc-link">Exploring vs Expertise with epsilon greedy mechanism</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#q-learning-hyper-parameters" class="toc-link">Q-learning hyper-parameters</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8571/#implementation-in-python" class="toc-link">Implementation in python</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#simple-grid-environment" class="toc-link">Simple grid environment</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#action-space" class="toc-link">Action space</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#q-table-1" class="toc-link">Q-table</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#training" class="toc-link">Training</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#optimal-policy" class="toc-link">Optimal policy</a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#path-from-optimal-policy" class="toc-link">Path from optimal policy</a>
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8571/#insights-into-results" class="toc-link">insights into results</a>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;salaheddineghamri.github.io&#x2F;posts&#x2F;post-8571&#x2F;">Basic Q-learning algorithm</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">created: 2024-06-01, modified: 2024-06-01</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h1 id="introduction">Introduction</h1>
+<p>Q-Learning is a popular reinforcement learning algorithm that belongs to the
+class of value-based methods. It enables an agent to learn the optimal
+action-selection policy by interacting with its environment and maximizing a
+cumulative reward value. In order to fully understand this algorithm we will
+implement a simple version of it step by step. Q-learning can be used in
+various applications while go to goal application in a grid environment can
+showcase its capability to be used in mobile robotics path finding tasks
+similar to djikstra and A* algorithms.</p>
+<p>Before engaging the topic of Q-learning and its intricacies, an overview of
+reinforcement learning (RL) and its fundamental terminology is warranted.</p>
+<h2 id="reinforcement-learning-rl-reinforcement-learning-is-a-type-of-machine">Reinforcement learning (RL) reinforcement learning is a type of machine</h2>
+<p>learning where the main goal is to make an agent learn to take correct
+decisions in its environment. The idea behind it is strengthening or promoting
+certain behaviors the agent would make in systematic way, hence the word
+“reinforcement” is used. It remains a process of trial and error, where
+consistent reward for good (successful) actions and penalties for bad
+(unsuccessful) ones gradually guide the agent towards discovering the optimal
+policy for achieving its goals.</p>
+<blockquote class="callout note">
+    
+    <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z" fill="currentColor"></path></svg>
+    </div>
+    <div class="content">
+        
+        <p><strong>A glimpse of history</strong></p>
+        
+        <p>Reinforcement learning’s history intertwines two threads:</p>
+<ul>
+<li><strong>Trial-and-error learning</strong>: Rooted in animal psychology, it explores how
+actions with positive outcomes are reinforced and repeated. Early AI
+researchers like Marvin Minsky and Donald Michie experimented with this
+concept.</li>
+<li><strong>Optimal control</strong>: Focused on designing controllers to minimize system
+behavior over time, this thread involved mathematical concepts like value
+functions and Bellman’s equation. Dynamic programming emerged as a key method.</li>
+</ul>
+<p>These threads converged in the late 1980s, thanks to contributions like
+temporal-difference learning and Q-learning, marking the birth of modern
+reinforcement learning as we know it.<sup><a href="#1">[1]</a></sup></p>
+
+    </div>
+</blockquote>
+<h2 id="terminology">Terminology</h2>
+<p><strong>agent</strong>: the learner or the decision maker it takes actions and receives
+rewards. In robotic context, it is the robot itself or a subsystem of the robot
+that will perform a defined task.</p>
+<p><strong>environment</strong>: it’s the context where the agent operates. it can be real or
+virtual or any system able to provide information of its state and reacts to
+the agent actions generating new states and rewards.</p>
+<p><strong>action</strong>: a choice made by the agent that influences the environment altering
+its state.</p>
+<p><strong>action space</strong>:</p>
+<p><strong>state</strong>: a snapshot of the environment at a specific point in time. it has
+all information agent need to make an action.</p>
+<p><strong>state space</strong>:</p>
+<p><strong>policy</strong>: a strategy or mapping that guides the agent’s decision-making
+process. it determines which action the agent should take in each state to
+maximize cumulative rewards.</p>
+<p><strong>reward</strong>: a scalar feedback signal or a numerical score from the environment
+that indicates how good or bad the action was in a particular state. positive
+rewards encourage desired behavior, while negative rewards discourage
+undesirable behavior.</p>
+<p><strong>cumulative rewards</strong>: a total sum of rewards received by an agent over a
+sequence of actions or time steps. It represents the overall performance of the
+agent in achieving its goals.</p>
+<p>Alright, buckle up and let’s dive into it!</p>
+<h1 id="q-learning">Q-learning</h1>
+<p>So what is Q-learning ?</p>
+<p>It is an algorithm relatively simple, the idea behind it is to keep track of all accumulative
+rewards received by taking any action in any given state.</p>
+<blockquote class="callout note">
+    
+    <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z" fill="currentColor"></path></svg>
+    </div>
+    <div class="content">
+        
+        <p><strong>What does Q mean ?</strong></p>
+        
+        <p>The Q there may mean “quality” or maybe it’s just a mathematical variable name chosen by Chris Watkins.<sup><a href="#2">[2]</a></sup></p>
+
+    </div>
+</blockquote>
+<p>“Q” refers to the function “Q” that the algorithm computes to represent the rewards for an action
+taken by the agent. To keep track of all possible rewards the agent
+maintains a state-action table named “Q-table” contains what is called “Q-values” for each (stat, action) set (cell).
+This table is updated through the episodes in the training phase to accumulate all possible rewards.
+The best action to take for a given state is then the action that has the maximum Q-value among all other actions.</p>
+<p>In nutshell, The Q-table stores a score for taking each action in each state of the agent.</p>
+<h2 id="q-table">Q-table</h2>
+<p>The Q-table represents the expected cumulative reward for taking each possible action in each state.
+The Q-table is initialized arbitrarily, and its values are updated as the agent interacts with its environment.</p>
+<h2 id="updating-q-table-and-bellman-optimality-equation">Updating Q-table and Bellman optimality equation</h2>
+<p>The most important aspect of Q-learning is the update of the Q-values in the Q-table.
+This update process will maximize the Q-value of some actions for each specific state of the agent.
+This eventually realizes the learning nature of this algorithm and we will get an optimal policy
+with actions that have the maximum Q-value in the table.</p>
+<p>The update of the Q-values will be according to the following formula:</p>
+<blockquote class="callout equation">
+    
+    <div class="icon">
+        <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><style>.a{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;}</style></defs><path class="a" d="M40.5,5.5H7.5a2,2,0,0,0-2,2v33a2,2,0,0,0,2,2h33a2,2,0,0,0,2-2V7.5A2,2,0,0,0,40.5,5.5Z"/><line class="a" x1="35.3586" y1="11.4476" x2="27.9796" y2="21.2249"/><line class="a" x1="35.3586" y1="21.2249" x2="27.9796" y2="11.4476"/><path class="a" d="M24.1428,33.4439a6.017,6.017,0,0,1-5.2845,3.1085h0a6.2353,6.2353,0,0,1-6.2169-6.217v-4.041a6.2352,6.2352,0,0,1,6.2169-6.217h0a6.2352,6.2352,0,0,1,6.217,6.217V28.47H12.6414"/></svg>
+
+    </div>
+    <div class="content">
+        
+        <p><strong>Q-learning formula</strong></p>
+        
+        <br>
+        <br>
+        <div style="text-align: center;">
+<script type="math/tex">Q^{new}(s, a) = Q(s, a) + \alpha \left[ R(s, a) + \gamma \max_{a' \in A} Q'(s', a') - Q(s, a) \right]</script>
+
+</div>
+<br>
+<br>
+<script type="math/tex">Q^{new}(s, a)</script>
+: new Q value state s and action a.<br>
+<script type="math/tex">Q(s, a)</script>
+: current Q value.<br>
+<script type="math/tex">\alpha</script>
+: learning rate.<br>
+<script type="math/tex">R(s, a)</script>
+: reward after taking that action a at the state s.<br>
+<script type="math/tex">\gamma</script>
+: discount rate.<br>
+<script type="math/tex">\max_{a' \in A} Q'(s', a')</script>
+: maximum expectued future reward given the new state s' and all its possible actions.<br>
+It is performed in a way agent will receive assessment of the effect of taking an action through time.<br>
+    </div>
+</blockquote>
+<p>This formula is the core of the Q-learning and what realizes the learning.
+At glance, it is not clear immediately how this formula can establish a learning pattern.
+However, when taking its recursive nature into account it will make a greater sense.</p>
+<p>The formula establishes a relationship between the current state and all
+possible future states. It is a form of a temporal difference (TD) which is
+another reinforcement-learning method that enables bootstrapping from the
+current estimates to update the value function.</p>
+<p>If only our knowledge was perfect in the current state we would knew exactly
+which action to take to get a maximum reward. this is not possible for the
+environements where the reward comes only after performing a specific sequence
+of actions through time. Such as in mobile robotics applications, namely
+go-to-goal, where we receive the reward only when the robot reaches its final
+goal point after a long journey.</p>
+<p>For such environements, we lack the forseight of how current action impact our
+mission goals ahead in the future. Our indicator if we had the full knowledge
+would be the accumulation of immediate rewards for taking the correct decision
+in each step (decision point).</p>
+<p>The following diagram illustrates this idea. Each correct decision in the
+decision points will be immediately rewarded by 1. G is representing the
+accumulative future rewards at each decision point. That is a good metric, it
+allows us to take the correct decision at a specific decision point taking its
+implication for the future also in account. A transition (action) with higher G
+is a correct action not only now but also in the future. Wherase when we lack
+this knowledge of how much rewards we will receive, no indicators (metric) that
+can help us, thus the return at each step is unknown G=?.</p>
+<p><img src="../../images/TD_idea.png" alt="time difference explanation" /></p>
+<p>let’s consider that we know at each step of time all immediate future rewards
+we can calculate the return G, for an episode start from t to T, as follow</p>
+<script type="math/tex">G_t = r_ {t+1} + \gamma r_{t+2} + \gamma^2 r_{t+3} + \dots + \gamma^{T-t-1} r_{T}</script>
+<p>or</p>
+<p><script type="math/tex">G_t = r_ {t+1} + \gamma G_{t+1}</script>
+ (useful for later)</p>
+<p>the gamma is just a discount factor giving more importance to the immediate
+rewards over the late ones.
+it must be chosen between 0 and 1.</p>
+<p>We can associate each state of the agent with a function V representing how
+much being in this state is rewarding.</p>
+<p><strong>Now, the question is how to calculate the V for each state ?</strong></p>
+<p>Since G_t is the best metric we have to make correct decisions, it is clear
+that this function V can be an approximation of G_t at each S_t.</p>
+<p>We simply start with any rough estimation then by iterating through the episodes we start
+making the value V_S equal to the return <script type="math/tex">G_t</script>
+
+this can be represented mathematically using the gradient descent formulation:</p>
+<script type="math/tex">V_{S_{t}} = V_{S_{t}} + \alpha (G_t - V_{S_{t}})</script>
+<p>This is a form of a gradient descent where alpha (learning rate) is a correcting factor for the error
+<script type="math/tex">G_t - V_{S_{t}}</script>
+ with each episode this error will decrease
+towards zero and alpha controls how fast that will be.</p>
+<p><strong>But the problem is how to know at each t the return G_t?</strong></p>
+<p>When it comes to solving this problem, research has revealed two effective approaches</p>
+<ol>
+<li>The obvious one is we calculate G at the end of each learning episode and use it in the next learning episode.
+This is the Monte Carlo method. Where G will be averaged through the episodes giving a closer estimate to its real value.</li>
+<li>We bootstrap and this is the TD method.</li>
+</ol>
+<p>Bootstrapping is a mouthful word which means using information from future
+states to update our estimates of the current state.</p>
+<p>Since knowing G return is not possible without completing the whole episode, in
+TD we start with an estimate and bootstrap it with the future accumulative
+reward when exploring the next state. This means we gain a partial
+knowledge that we use to enhance our decision making each time we explore a new state.</p>
+<blockquote class="callout note">
+    
+    <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z" fill="currentColor"></path></svg>
+    </div>
+    <div class="content">
+        
+        <p><strong>temporal-difference in action</strong></p>
+        
+        <p>Suppose you wish to predict the weather for Saturday, and you have some model
+that predicts Saturday’s weather, given the weather of each day in the week. In
+the standard case, you would wait until Saturday and then adjust all your
+models. However, when it is, for example, Friday, you should have a pretty good
+idea of what the weather would be on Saturday – and thus be able to change,
+say, Saturday’s model before Saturday arrives. <sup><a href="#2">[5]</a></sup></p>
+
+    </div>
+</blockquote>
+<p>So instead of making a value function V_S target G, we instead target an estimation
+called the TD target:</p>
+<script type="math/tex">TD_{target} = R_{t+1} + \gamma V_{S_{t+1}}</script>
+<p>it can be seen that this TD target is just the <script type="math/tex">G_{t}</script>
+ under the assumption
+that <script type="math/tex">G_t = V_{S_{t}}</script>
+ and while exposing the <script type="math/tex">G_{t+1}</script>
+ term.</p>
+<p>with each episode V_S will get closer and closer to the TD target while the TD
+target will get closer and closer to the real G_t. This is a simpliefied
+explanation how learning is happening in reinforcement learning.</p>
+<p>In TD, the rewards are tracked throght the value function which gives each
+state an estimate of the accumulative future rewards. On the other hand,
+Q-learning is using action-value function to tracking these estimates. The
+magical things here is that it’s enough to change the V value function with the Q
+action state value and the formula still holds. However we will need a table to
+track all the actions through all the states and this is the Q-table.</p>
+<p>I hope the formula is more clear with this explanation. Let’s see how to apply it on
+go to goal application in mobile robotics.</p>
+<blockquote class="callout note">
+    
+    <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z" fill="currentColor"></path></svg>
+    </div>
+    <div class="content">
+        
+        <p><strong>Note</strong></p>
+        
+        <p>Principle of Optimality: An optimal policy has the property that whatever the
+initial state and initial decision are, the remaining decisions must constitute
+an optimal policy with regard to the state resulting from the first decision.
+(See Bellman, 1957, Chap. III.3.</p>
+
+    </div>
+</blockquote>
+<blockquote class="callout alert">
+    
+    <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M4.00098 20V14C4.00098 9.58172 7.5827 6 12.001 6C16.4193 6 20.001 9.58172 20.001 14V20H21.001V22H3.00098V20H4.00098ZM6.00098 20H18.001V14C18.001 10.6863 15.3147 8 12.001 8C8.68727 8 6.00098 10.6863 6.00098 14V20ZM11.001 2H13.001V5H11.001V2ZM19.7792 4.80761L21.1934 6.22183L19.0721 8.34315L17.6578 6.92893L19.7792 4.80761ZM2.80859 6.22183L4.22281 4.80761L6.34413 6.92893L4.92991 8.34315L2.80859 6.22183ZM7.00098 14C7.00098 11.2386 9.23956 9 12.001 9V11C10.3441 11 9.00098 12.3431 9.00098 14H7.00098Z" fill="currentColor"></path></svg>
+    </div>
+    <div class="content">
+        
+        <p><strong>Example</strong></p>
+        
+        <p>show an example of the stochastic gradient descent</p>
+
+    </div>
+</blockquote>
+<h2 id="exploring-vs-expertise-with-epsilon-greedy-mechanism">Exploring vs Expertise with epsilon greedy mechanism</h2>
+<h2 id="q-learning-hyper-parameters">Q-learning hyper-parameters</h2>
+<p>review of the Q learning parameters</p>
+<h1 id="implementation-in-python">Implementation in python</h1>
+<p>Go to goal application in grid environment
+What is the action space ?
+What is the state space ?</p>
+<h2 id="simple-grid-environment">Simple grid environment</h2>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Define the grid world environment
+</span><span style="color:#65737e;"># Obstacles are designated using &quot;1&quot;
+</span><span>grid = [
+</span><span>    [</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>],
+</span><span>    [</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>],
+</span><span>    [</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>],
+</span><span>    [</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>],
+</span><span>    [</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>],
+</span><span>]
+</span><span>
+</span><span style="color:#65737e;"># start and goal points
+</span><span>start = (</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">0</span><span>)
+</span><span>goal = (</span><span style="color:#d08770;">3</span><span>, </span><span style="color:#d08770;">2</span><span>)
+</span></code></pre>
+<h2 id="action-space">Action space</h2>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Define the possible actions
+</span><span>actions = [(-</span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>), (</span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>), (</span><span style="color:#d08770;">0</span><span>, -</span><span style="color:#d08770;">1</span><span>), (</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">1</span><span>)]  </span><span style="color:#65737e;"># down  # up  # left  # right
+</span></code></pre>
+<h2 id="q-table-1">Q-table</h2>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Define the Q-table
+</span><span>Q = {}
+</span><span style="color:#b48ead;">for </span><span>i </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(</span><span style="color:#d08770;">5</span><span>):
+</span><span>    </span><span style="color:#b48ead;">for </span><span>j </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(</span><span style="color:#d08770;">5</span><span>):
+</span><span>        </span><span style="color:#b48ead;">for </span><span>a </span><span style="color:#b48ead;">in </span><span>actions:
+</span><span>            Q[(i, j), a] = </span><span style="color:#d08770;">0
+</span></code></pre>
+<h2 id="training">Training</h2>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Define the hyperparameters
+</span><span>alpha = </span><span style="color:#d08770;">0.1  </span><span style="color:#65737e;"># learning rate
+</span><span>gamma = </span><span style="color:#d08770;">0.9  </span><span style="color:#65737e;"># discount factor
+</span><span>epsilon = </span><span style="color:#d08770;">0.1  </span><span style="color:#65737e;"># epsilon-greedy rate
+</span><span>num_episodes = </span><span style="color:#d08770;">1000  </span><span style="color:#65737e;"># number of episodes
+</span><span>
+</span><span style="color:#65737e;"># Q-Learning algorithm
+</span><span style="color:#b48ead;">for </span><span>episode </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(num_episodes):
+</span><span>    state = start
+</span><span>    done = </span><span style="color:#d08770;">False
+</span><span>    </span><span style="color:#b48ead;">while </span><span>not done:
+</span><span>        </span><span style="color:#65737e;"># Choose an action using epsilon-greedy policy
+</span><span>        </span><span style="color:#65737e;"># NOTE: import numpy
+</span><span>        </span><span style="color:#b48ead;">if </span><span>np.random.</span><span style="color:#bf616a;">random</span><span>() &lt; epsilon:
+</span><span>            action = random.</span><span style="color:#bf616a;">choice</span><span>(actions)
+</span><span>        </span><span style="color:#b48ead;">else</span><span>:
+</span><span>            q_max = </span><span style="color:#96b5b4;">max</span><span>(
+</span><span>                Q[state, a]
+</span><span>                </span><span style="color:#b48ead;">for </span><span>a </span><span style="color:#b48ead;">in </span><span>actions
+</span><span>                </span><span style="color:#b48ead;">if </span><span>(
+</span><span>                    state[</span><span style="color:#d08770;">0</span><span>] + a[</span><span style="color:#d08770;">0</span><span>] &gt;= </span><span style="color:#d08770;">0
+</span><span>                    and state[</span><span style="color:#d08770;">0</span><span>] + a[</span><span style="color:#d08770;">0</span><span>] &lt; </span><span style="color:#d08770;">5
+</span><span>                    and state[</span><span style="color:#d08770;">1</span><span>] + a[</span><span style="color:#d08770;">1</span><span>] &gt;= </span><span style="color:#d08770;">0
+</span><span>                    and state[</span><span style="color:#d08770;">1</span><span>] + a[</span><span style="color:#d08770;">1</span><span>] &lt; </span><span style="color:#d08770;">5
+</span><span>                )
+</span><span>                and grid[state[</span><span style="color:#d08770;">0</span><span>] + a[</span><span style="color:#d08770;">0</span><span>]][state[</span><span style="color:#d08770;">1</span><span>] + a[</span><span style="color:#d08770;">1</span><span>]] != </span><span style="color:#d08770;">1
+</span><span>            )
+</span><span>            action = </span><span style="color:#96b5b4;">next</span><span>((a </span><span style="color:#b48ead;">for </span><span>a </span><span style="color:#b48ead;">in </span><span>actions </span><span style="color:#b48ead;">if </span><span>Q[state, a] == q_max))
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># Check if the action leads to an invalid state
+</span><span>        </span><span style="color:#b48ead;">if </span><span>(
+</span><span>            not (
+</span><span>                state[</span><span style="color:#d08770;">0</span><span>] + action[</span><span style="color:#d08770;">0</span><span>] &gt;= </span><span style="color:#d08770;">0
+</span><span>                and state[</span><span style="color:#d08770;">0</span><span>] + action[</span><span style="color:#d08770;">0</span><span>] &lt; </span><span style="color:#d08770;">5
+</span><span>                and state[</span><span style="color:#d08770;">1</span><span>] + action[</span><span style="color:#d08770;">1</span><span>] &gt;= </span><span style="color:#d08770;">0
+</span><span>                and state[</span><span style="color:#d08770;">1</span><span>] + action[</span><span style="color:#d08770;">1</span><span>] &lt; </span><span style="color:#d08770;">5
+</span><span>            )
+</span><span>            or grid[state[</span><span style="color:#d08770;">0</span><span>] + action[</span><span style="color:#d08770;">0</span><span>]][state[</span><span style="color:#d08770;">1</span><span>] + action[</span><span style="color:#d08770;">1</span><span>]] == </span><span style="color:#d08770;">1
+</span><span>        ):
+</span><span>            </span><span style="color:#b48ead;">continue
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># Take the action and observe the reward and new state
+</span><span>        next_state = (state[</span><span style="color:#d08770;">0</span><span>] + action[</span><span style="color:#d08770;">0</span><span>], state[</span><span style="color:#d08770;">1</span><span>] + action[</span><span style="color:#d08770;">1</span><span>])
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># lowest reward
+</span><span>        reward = -</span><span style="color:#d08770;">1
+</span><span>
+</span><span>        </span><span style="color:#b48ead;">if </span><span>next_state == goal:
+</span><span>            </span><span style="color:#65737e;"># highest reward
+</span><span>            reward = </span><span style="color:#d08770;">100
+</span><span>            done = </span><span style="color:#d08770;">True
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># update the Q-table
+</span><span>        Q[state, action] = (</span><span style="color:#d08770;">1 </span><span>- alpha) * Q[state, action] + alpha * (
+</span><span>            reward + gamma * </span><span style="color:#96b5b4;">max</span><span>(Q[next_state, a] </span><span style="color:#b48ead;">for </span><span>a </span><span style="color:#b48ead;">in </span><span>actions)
+</span><span>        )
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># update next state
+</span><span>        state = next_state
+</span></code></pre>
+<h2 id="optimal-policy">Optimal policy</h2>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Print the optimal policy
+</span><span>policy = {}
+</span><span style="color:#b48ead;">for </span><span>state, action </span><span style="color:#b48ead;">in </span><span>Q:
+</span><span>    q_max = </span><span style="color:#96b5b4;">max</span><span>(Q[state, a] </span><span style="color:#b48ead;">for </span><span>a </span><span style="color:#b48ead;">in </span><span>actions)
+</span><span>    action = </span><span style="color:#96b5b4;">next</span><span>((a </span><span style="color:#b48ead;">for </span><span>a </span><span style="color:#b48ead;">in </span><span>actions </span><span style="color:#b48ead;">if </span><span>Q[state, a] == q_max))
+</span><span>    policy[state] = action
+</span><span style="color:#96b5b4;">print</span><span>(&quot;</span><span style="color:#a3be8c;">learned policy: </span><span>&quot;, policy)
+</span><span>
+</span></code></pre>
+<h2 id="path-from-optimal-policy">Path from optimal policy</h2>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Build path from learned policy
+</span><span>path = []
+</span><span>current_state = start
+</span><span>path.</span><span style="color:#bf616a;">append</span><span>(start)
+</span><span>
+</span><span style="color:#b48ead;">while </span><span>current_state != goal:
+</span><span>    current_state = (
+</span><span>        current_state[</span><span style="color:#d08770;">0</span><span>] + policy[current_state][</span><span style="color:#d08770;">0</span><span>],
+</span><span>        current_state[</span><span style="color:#d08770;">1</span><span>] + policy[current_state][</span><span style="color:#d08770;">1</span><span>],
+</span><span>    )
+</span><span>    path.</span><span style="color:#bf616a;">append</span><span>(current_state)
+</span><span>
+</span><span style="color:#96b5b4;">print</span><span>(&quot;</span><span style="color:#a3be8c;">path to goal : </span><span>&quot;, path)
+</span></code></pre>
+<h1 id="insights-into-results">insights into results</h1>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>history of reinforcement learning <a href="http://incompleteideas.net/book/ebook/node12.html">link</a>.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>first appearance of Q-learning algorithm <a href="https://www.cs.rhul.ac.uk/~chrisw/new_thesis.pdf">link</a>.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>step by step demonstation of Q-learning algorithm <a href="https://towardsdatascience.com/reinforcement-learning-explained-visually-part-4-q-learning-step-by-step-b65efb731d3e">link</a></p>
+</div>
+<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
+<p>Bellman optimality equation <a href="https://www.slideshare.net/slideshow/ai-introduction-to-bellman-equations/79595354">link</a></p>
+</div>
+<div class="footnote-definition" id="5"><sup class="footnote-definition-label">5</sup>
+<p>temporal-difference wikipedia <a href="https://en.wikipedia.org/wiki/Temporal_difference_learning">link</a></p>
+</div>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+                <div class="post-tags">
+                    
+                        <a href="">#q-learning</a>
+                    
+                        <a href="">#reinforcement_learning</a>
+                    
+                </div>
+            
+        
+    </div>
+
+    
+
+    <script src="https://giscus.app/client.js"
+            data-repo="salaheddineghamri/salaheddineghamri.github.io"
+            data-repo-id="R_kgDOK3yJYg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOK3yJYs4Cdper"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="1"
+            data-input-position="top"
+            data-theme="light"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+    
+</article>
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+          <script type="text/javascript" src="https://salaheddineghamri.github.io/posts/odd.js" ></script>
+      
+    </body>
+</html>
