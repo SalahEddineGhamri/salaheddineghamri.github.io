@@ -195,7 +195,15 @@
                 </li>
                 
                 <li>
-                    <a href="https://salaheddineghamri.github.io/posts/post-8571/#insights-into-results" class="toc-link">insights into results</a>
+                    <a href="https://salaheddineghamri.github.io/posts/post-8571/#conclusion" class="toc-link">Conclusion</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="https://salaheddineghamri.github.io/posts/post-8571/#limitation-of-q-learning" class="toc-link">limitation of Q learning</a>
+                        </li>
+                        
+                    </ul>
                     
                 </li>
                 
@@ -212,7 +220,7 @@
             <a href="https:&#x2F;&#x2F;salaheddineghamri.github.io&#x2F;posts&#x2F;post-8571&#x2F;">Basic Q-learning algorithm</a>
         </h1>
         <div class="post__meta">
-            <span class="post__time">created: 2024-06-01, modified: 2024-06-01</span>
+            <span class="post__time">created: 2024-06-01, modified: 2024-08-03</span>
             
         </div>
     </header>
@@ -271,10 +279,10 @@ virtual or any system able to provide information of its state and reacts to
 the agent actions generating new states and rewards.</p>
 <p><strong>action</strong>: a choice made by the agent that influences the environment altering
 its state.</p>
-<p><strong>action space</strong>:</p>
+<p><strong>action space</strong>: all possible actions the agent can take in a given state.</p>
 <p><strong>state</strong>: a snapshot of the environment at a specific point in time. it has
 all information agent need to make an action.</p>
-<p><strong>state space</strong>:</p>
+<p><strong>state space</strong>: all possible states that the agent can be in from the current state.</p>
 <p><strong>policy</strong>: a strategy or mapping that guides the agent’s decision-making
 process. it determines which action the agent should take in each state to
 maximize cumulative rewards.</p>
@@ -440,8 +448,10 @@ called the TD target:</p>
 that <script type="math/tex">G_t = V_{S_{t}}</script>
  and while exposing the <script type="math/tex">G_{t+1}</script>
  term.</p>
-<p>with each episode V_S will get closer and closer to the TD target while the TD
-target will get closer and closer to the real G_t. This is a simpliefied
+<p>with each episode <script type="math/tex">V_S</script>
+ will get closer and closer to the TD target while the TD
+target will get closer and closer to the real <script type="math/tex">G_t</script>
+. This is a simpliefied
 explanation how learning is happening in reinforcement learning.</p>
 <p>In TD, the rewards are tracked throght the value function which gives each
 state an estimate of the accumulative future rewards. On the other hand,
@@ -449,8 +459,6 @@ Q-learning is using action-value function to tracking these estimates. The
 magical things here is that it’s enough to change the V value function with the Q
 action state value and the formula still holds. However we will need a table to
 track all the actions through all the states and this is the Q-table.</p>
-<p>I hope the formula is more clear with this explanation. Let’s see how to apply it on
-go to goal application in mobile robotics.</p>
 <blockquote class="callout note">
     
     <div class="icon">
@@ -467,27 +475,27 @@ an optimal policy with regard to the state resulting from the first decision.
 
     </div>
 </blockquote>
-<blockquote class="callout alert">
-    
-    <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M4.00098 20V14C4.00098 9.58172 7.5827 6 12.001 6C16.4193 6 20.001 9.58172 20.001 14V20H21.001V22H3.00098V20H4.00098ZM6.00098 20H18.001V14C18.001 10.6863 15.3147 8 12.001 8C8.68727 8 6.00098 10.6863 6.00098 14V20ZM11.001 2H13.001V5H11.001V2ZM19.7792 4.80761L21.1934 6.22183L19.0721 8.34315L17.6578 6.92893L19.7792 4.80761ZM2.80859 6.22183L4.22281 4.80761L6.34413 6.92893L4.92991 8.34315L2.80859 6.22183ZM7.00098 14C7.00098 11.2386 9.23956 9 12.001 9V11C10.3441 11 9.00098 12.3431 9.00098 14H7.00098Z" fill="currentColor"></path></svg>
-    </div>
-    <div class="content">
-        
-        <p><strong>Example</strong></p>
-        
-        <p>show an example of the stochastic gradient descent</p>
-
-    </div>
-</blockquote>
+<p>I hope the formula is more clear with this explanation. Let’s see how to apply it on
+go to goal application in mobile robotics.</p>
 <h2 id="exploring-vs-expertise-with-epsilon-greedy-mechanism">Exploring vs Expertise with epsilon greedy mechanism</h2>
 <h2 id="q-learning-hyper-parameters">Q-learning hyper-parameters</h2>
-<p>review of the Q learning parameters</p>
+<p>The Q learning has parameters that needs to be tuned for optimal learning.
+alpha: the learning rate, this parameter controls how fast we will converge to optimal solution.
+gamma: the discount factor, controls how much we count immediate rewards over final rewards. high factor means we are focusing on immediate rewards.
+epsilon: the epsilon-greedy rate, controls how much much agent explores new states even if they are not optimal.
+num_episodes: not related to Q learning specifically but to RL in general, each epiode finished by the agent reaching the goal.</p>
 <h1 id="implementation-in-python">Implementation in python</h1>
-<p>Go to goal application in grid environment
-What is the action space ?
-What is the state space ?</p>
 <h2 id="simple-grid-environment">Simple grid environment</h2>
+<p>To simplify the go to goal task. we use a small grid of small number of cells.
+Each cell represents the position that can the robot be in. The robot is the
+agent in the reinforcement learning context. The robot position is the state of
+the agent.</p>
+<p>Obstacles can be added to the grid by using the following convention:</p>
+<ul>
+<li>0 value: the cell is free and the robot can go there.</li>
+<li>1 value: the cell has an obstacle and the robot is forbidden from occupying this cell.</li>
+</ul>
+<p>The state space in this case is all the cells of this grid that they are not occupied by an obstacles.</p>
 <pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Define the grid world environment
 </span><span style="color:#65737e;"># Obstacles are designated using &quot;1&quot;
 </span><span>grid = [
@@ -503,10 +511,14 @@ What is the state space ?</p>
 </span><span>goal = (</span><span style="color:#d08770;">3</span><span>, </span><span style="color:#d08770;">2</span><span>)
 </span></code></pre>
 <h2 id="action-space">Action space</h2>
+<p>For simplification reasons we consider that the robot is only able to move in 4
+directions: up, down, right, left. So we can deduce the action space of 4
+actions: moving up, moving down, moving right and moving left.</p>
 <pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Define the possible actions
 </span><span>actions = [(-</span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>), (</span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">0</span><span>), (</span><span style="color:#d08770;">0</span><span>, -</span><span style="color:#d08770;">1</span><span>), (</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">1</span><span>)]  </span><span style="color:#65737e;"># down  # up  # left  # right
 </span></code></pre>
 <h2 id="q-table-1">Q-table</h2>
+<p>We use a python dict to track a Q values of all states / action space.</p>
 <pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Define the Q-table
 </span><span>Q = {}
 </span><span style="color:#b48ead;">for </span><span>i </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(</span><span style="color:#d08770;">5</span><span>):
@@ -576,6 +588,7 @@ What is the state space ?</p>
 </span><span>        state = next_state
 </span></code></pre>
 <h2 id="optimal-policy">Optimal policy</h2>
+<p>We can show the learned policy as follow:</p>
 <pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Print the optimal policy
 </span><span>policy = {}
 </span><span style="color:#b48ead;">for </span><span>state, action </span><span style="color:#b48ead;">in </span><span>Q:
@@ -583,9 +596,9 @@ What is the state space ?</p>
 </span><span>    action = </span><span style="color:#96b5b4;">next</span><span>((a </span><span style="color:#b48ead;">for </span><span>a </span><span style="color:#b48ead;">in </span><span>actions </span><span style="color:#b48ead;">if </span><span>Q[state, a] == q_max))
 </span><span>    policy[state] = action
 </span><span style="color:#96b5b4;">print</span><span>(&quot;</span><span style="color:#a3be8c;">learned policy: </span><span>&quot;, policy)
-</span><span>
 </span></code></pre>
 <h2 id="path-from-optimal-policy">Path from optimal policy</h2>
+<p>in the following is how to extract the path from the learned policy</p>
 <pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;"># Build path from learned policy
 </span><span>path = []
 </span><span>current_state = start
@@ -600,7 +613,28 @@ What is the state space ?</p>
 </span><span>
 </span><span style="color:#96b5b4;">print</span><span>(&quot;</span><span style="color:#a3be8c;">path to goal : </span><span>&quot;, path)
 </span></code></pre>
-<h1 id="insights-into-results">insights into results</h1>
+<h1 id="conclusion">Conclusion</h1>
+<p>In the end, the robot was able to learn the task go to goal while avoiding
+obstacles. Since the learned policy is the optimal the calculated path will be
+the shortest.</p>
+<p>In a grid environment, the simple QN can replace A* and Djikstra algorithms,
+however they are more efficient and using less memory due that Q learning is
+keeping track of all possible state action Q values in a table.</p>
+<p>The learned policy may not be the optimal due to the update correlations and
+changing the start and target may result in wrong decisions.</p>
+<h2 id="limitation-of-q-learning">limitation of Q learning</h2>
+<ul>
+<li>
+<p>While Q learning works well for small dimension problem, it challenging to learn optimal policy in problem where the state action space is
+large. This is known as the curse of dimensionality.</p>
+</li>
+<li>
+<p>Q learning is not suitable for continuous action spaces. The version of “go to gaol” problem we
+showed here is highly simplified version of the mobile robot environmenent. In
+reality the robot action space is more continuous rather then discret. This characteristic makes Q learning
+impractical for real world application where the actions space must be fine tuned as continuous space.</p>
+</li>
+</ul>
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>history of reinforcement learning <a href="http://incompleteideas.net/book/ebook/node12.html">link</a>.</p>
 </div>
