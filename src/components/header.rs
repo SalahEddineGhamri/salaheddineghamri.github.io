@@ -21,7 +21,14 @@ impl Component for Header {
                         <p class="text-gray-600 text-l sm:text-s">{"Researcher & Software Engineer"}</p>
                     </div>
                     <p class="font-inter text-black text-justify">
-                                               {"My career blends electronics, software development, and research. 🚀 Specializing in mobile robotics, I've worked on autonomous behavior and pushed my boundaries in transportation technology. 🤖 Now, I work on advancing automotive technology, leveraging my diverse skill set in programming languages like C++, Python, and Rust and working closer to hardward (SoC & ECUs). My relentless pursuit of excellence and passion for collaboration drive me to propel meaningful advancements in software development. ✨ In addition to writing code for various purposes, I also blog📝."}
+                                               {"My background spans electronics, software development, and research,
+                                               with a focus on mobile robotics and autonomous systems. I have worked on
+                                               autonomous behavior and transportation technology. Currently, I
+                                               contribute to automotive projects, using programming languages like C++,
+                                               Python, and Rust, and working closely with hardware such as SoCs and
+                                               ECUs. I develop software aimed at improving system reliability and
+                                               performance. I also write technical blogs to share practical insights on
+                                               emerging technologies. I am motivated by collaboration and continuous learning, aiming to support meaningful progress in embedded and automotive software development."}
                                                </p>
                     // linkedin button
                     <div class = "flex py-6 space-x-2 items-center">
