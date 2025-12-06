@@ -15,5 +15,16 @@ async-std = "1.10.0"
 include_dir = "0.7.3"
 glob = "0.3.1"
 reqwest = { version = "0.11", features = ["json"] }
-yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
+yew = { git = "https://github.com/yewstack/yew/", features = ["csr", "ssr"] }
 yew-router = { git = "https://github.com/yewstack/yew.git" }
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "my_portfolio_app"
+path = "src/main.rs"
+
+[[bin]]
+name = "main_ssr"
+path = "src/main_ssr.rs"
