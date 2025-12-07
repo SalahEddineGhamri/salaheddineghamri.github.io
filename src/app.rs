@@ -12,14 +12,14 @@ pub fn App() -> Html {
                 if cfg!(target_arch = "wasm32") {
                     use yew_router::prelude::*;
                     html! {
-                        <BrowserRouter>
+                        <HashRouter>
                             <Navbar/>
                             <div class="flex flex-col min-h-full">
                                 <div class="flex-1">
                                     <Switch<Route> render={switch} />
                                 </div>
                             </div>
-                        </BrowserRouter>
+                        </HashRouter>
                     }
                 } else {
                     // SSR: fallback UI
