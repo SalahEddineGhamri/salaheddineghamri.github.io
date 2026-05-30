@@ -1,0 +1,96 @@
+/* --- PRO HOMEPAGE DUAL GRID SYSTEM --- */
+.pro-homepage-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+    margin-top: 2rem;
+    box-sizing: border-box;
+}
+
+/* When the screen is a desktop monitor, unlock true Left / Right positioning */
+@media (min-width: 850px) {
+    .pro-homepage-grid {
+        display: grid !important;
+        grid-template-columns: 5fr 7fr !important; /* Left column takes 42%, Right column takes 58% */
+        align-items: start;
+    }
+}
+
+/* --- LEFT COLUMN STYLES --- */
+.pro-welcome-card {
+    background: #fafafa;
+    padding: 2rem;
+    border-radius: 8px;
+    border-top: 4px solid #0366d6;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.pro-welcome-card h1, .pro-welcome-card h2 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    color: #111;
+}
+
+.pro-welcome-card p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+}
+
+/* --- RIGHT COLUMN STYLES --- */
+.pro-section-title {
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 0.5rem;
+    color: #111;
+}
+
+.pro-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.pro-post-card {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 6px;
+    border: 1px solid #e1e4e8;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pro-post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+    border-color: #0366d6;
+}
+
+.pro-post-date {
+    font-size: 0.85rem;
+    color: #6a737d;
+    font-weight: 500;
+}
+
+.pro-post-card h3 {
+    margin: 0.4rem 0;
+    font-size: 1.35rem;
+}
+
+.pro-post-card h3 a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.pro-post-card h3 a:hover {
+    text-decoration: underline;
+}
+
+.pro-post-summary {
+    color: #586069;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}

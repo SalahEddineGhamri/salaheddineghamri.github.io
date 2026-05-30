@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
+        <loc>https://salaheddineghamri.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://salaheddineghamri.github.io/about/</loc>
+    </url>
+    <url>
+        <loc>https://salaheddineghamri.github.io/page/1/</loc>
+    </url>
+    <url>
         <loc>https://salaheddineghamri.github.io/posts/</loc>
     </url>
     <url>

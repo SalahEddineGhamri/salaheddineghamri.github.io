@@ -1,7 +1,4 @@
-# Allow all bots to crawl everything
 User-agent: *
+Disallow:
 Allow: /
-
-# Optional: block private or API paths
-Disallow: /api/
-Disallow: /internal/
+Sitemap: https://salaheddineghamri.github.io/sitemap.xml
