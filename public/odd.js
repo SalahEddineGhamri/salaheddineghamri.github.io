@@ -97,17 +97,19 @@ if (document.readyState === "complete" ||
 }
 
 function initThemeToggle() {
-  const toggleBtn = document.getElementById("theme-toggle");
+  const toggleBtns = document.querySelectorAll(".theme-toggle-btn");
   const currentTheme = localStorage.getItem("theme") || "light";
 
   document.documentElement.setAttribute("data-theme", currentTheme);
 
-  toggleBtn.addEventListener("click", () => {
-    let theme = document.documentElement.getAttribute("data-theme");
-    let newTheme = theme === "dark" ? "light" : "dark";
+  toggleBtns.forEach(function(btn) {
+    btn.addEventListener("click", () => {
+      let theme = document.documentElement.getAttribute("data-theme");
+      let newTheme = theme === "dark" ? "light" : "dark";
 
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
+      document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+    });
   });
 }
 
