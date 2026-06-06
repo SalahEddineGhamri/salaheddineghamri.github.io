@@ -4,8 +4,73 @@
     <link rel="self" type="application/atom+xml" href="https://salaheddineghamri.github.io/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://salaheddineghamri.github.io"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2024-06-01T00:00:00+00:00</updated>
+    <updated>2026-06-06T00:00:00+00:00</updated>
     <id>https://salaheddineghamri.github.io/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Why Microsoft built Coreutils for Windows: No, it&#x27;s not because Rust is better</title>
+        <published>2026-06-06T00:00:00+00:00</published>
+        <updated>2026-06-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Salah Eddine Ghamri
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://salaheddineghamri.github.io/posts/post-8572/"/>
+        <id>https://salaheddineghamri.github.io/posts/post-8572/</id>
+        
+        <content type="html" xml:base="https://salaheddineghamri.github.io/posts/post-8572/">&lt;h1 id=&quot;the-newcomer&quot;&gt;The newcomer&lt;&#x2F;h1&gt;
+&lt;p&gt;This week, Microsoft has introduced its new Coreutils, UNIX-style command-line
+utilities, which helps developers feel right at home while working in a WINDOWS
+environment. Microsoft built Coreutils for WINDOWS directly on top of
+&lt;code&gt;uutils&#x2F;coreutils&lt;&#x2F;code&gt;, an open-source, Rust-based modern rewrite of traditional
+UNIX utilities.&lt;&#x2F;p&gt;
+&lt;p&gt;The benefits are arguable since WINDOWS developers already have MSYS2&#x2F;Cygwin and
+others, which help make WINDOWS development analogous to Linux. The
+only benefit of Coreutils I clearly see is pipelining, which is becoming
+native, fast, and identical across WINDOWS and Linux.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt;cat&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; server.log&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt; grep&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;quot;ERROR&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt; head&lt;&#x2F;span&gt;&lt;span style=&quot;color: #79B8FF;&quot;&gt; -n 5&lt;&#x2F;span&gt;&lt;span style=&quot;color: #F97583;&quot;&gt; |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B392F0;&quot;&gt; awk&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9ECBFF;&quot;&gt; &amp;#39;{print $1, $4}&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can test it natively on Windows 11 right now:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #E1E4E8; background-color: #24292E;&quot;&gt;&lt;code data-lang=&quot;powershell&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;winget install Microsoft.Coreutils&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;But why was Microsoft Coreutils not built on GNU tools?&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;posix&quot;&gt;POSIX&lt;&#x2F;h1&gt;
+&lt;p&gt;When reading the news, I was thinking, why didn’t Microsoft base its tools on
+GNU Coreutils? Is it really only the acclaimed security benefits of Rust
+language?&lt;&#x2F;p&gt;
+&lt;p&gt;It turned out that GNU Coreutils are deeply dependent on —  and often hardcoded
+for— POSIX interfaces. If WINDOWS would adopt GNU Coreutils, it would have to
+emulate the POSIX layer again. This would not be their first try. In the ’90s,
+Microsoft tried to emulate POSIX to win some government projects, and it was a
+failure.&lt;&#x2F;p&gt;
+&lt;p&gt;In theory, software built for a UNIX-like system can work and build for another
+due to POSIX portability. In this regard, &lt;code&gt;uutils&#x2F;coreutils&lt;&#x2F;code&gt; is already
+cross-platform, which means it is works for WSL too. This reduces the unique
+advantage of strict POSIX compliance.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;the-reality&quot;&gt;The reality&lt;&#x2F;h1&gt;
+&lt;p&gt;However, the latter seems not the real reason. Microsoft and other major tech
+companies have a strict ban on using software under the GNU General Public
+License v3 (GPLv3).&lt;&#x2F;p&gt;
+&lt;p&gt;For Microsoft, using GPLv3-licensed GNU tools poses a strict risk of ‘viral’
+code contamination. This is due to the “Copyleft Clause,” which mandates that
+any software using parts of GPLv3 must be licensed under GPLv3 too. If a
+Microsoft engineer copies even a tiny snippet of GPLv3 code into the WINDOWS
+Terminal codebase, the entire project is legally classified as a ‘modified
+version’ or a ‘derivative work’ of that GNU tool.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;uutils&#x2F;coreutils&lt;&#x2F;code&gt;,on the other hand, is licensed under the highly permissive
+MIT license.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;sources&quot;&gt;Sources&lt;&#x2F;h1&gt;
+&lt;ol&gt;
+&lt;li&gt;https:&#x2F;&#x2F;www.gnu.org&#x2F;software&#x2F;coreutils&#x2F;&lt;&#x2F;li&gt;
+&lt;li&gt;https:&#x2F;&#x2F;www.gnu.org&#x2F;licenses&#x2F;gpl-3.0.en.html#:~:text=c%29-,You,it,-%2E&lt;&#x2F;li&gt;
+&lt;li&gt;License diagram via EPAM SolutionsHub&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Basic Q-learning algorithm</title>
         <published>2024-06-01T00:00:00+00:00</published>
